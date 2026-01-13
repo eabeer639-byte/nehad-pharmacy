@@ -707,7 +707,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 @media (max-width:520px){
   .checkout-form{gap:12px}
-  .btn{width:100%}
+  .btn{width:80%}
 }
 
 /* Shop page layout */
@@ -1215,4 +1215,5 @@ align-items: center;
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
 
