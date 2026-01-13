@@ -1,0 +1,93 @@
+[
+  {
+    "id": "navia-roll-deodrent-1",
+    "name": "ديودرانت نيفيا رول للرجال",
+    "description": "ديودرينت نيفيا للرجال حمايه 24 ساعه برائحه منعشه",
+    "price": 85,
+    "discount": 10,
+    "category": "العناية بالبشرة",
+    "stock": 1,
+    "rating": 4.5,
+    "reviewCount": 24,
+    "image": "http://localhost:3000/uploads/pngegg-1768200680163.png",
+    "createdAt": "2026-01-12T06:51:20.176Z",
+    "updatedAt": "2026-01-12T12:33:23.689Z"
+  },
+  {
+    "id": "2",
+    "name": "ديودرينت ديرما اكتف سويت كونترول",
+    "price": 170,
+    "discount": 0,
+    "category": "العناية الشخصية",
+    "stock": 0,
+    "rating": 4.8,
+    "reviewCount": 18,
+    "image": "http://localhost:3000/uploads/INTENSE-1768210920099.png",
+    "createdAt": "2026-01-12T09:42:00.107Z",
+    "updatedAt": "2026-01-12T09:44:44.123Z"
+  },
+  {
+    "id": "product-1768225294046",
+    "name": "مرطب ديرما اكتيف",
+    "description": "يلربرس",
+    "price": 33333,
+    "discount": 4,
+    "category": "العناية بالشعر",
+    "stock": 2,
+    "image": "http://localhost:3000/uploads/Hair_Care-1768225294040.webp",
+    "createdAt": "2026-01-12T13:41:34.046Z"
+  },
+  {
+    "id": "ث",
+    "name": "سبيبسي",
+    "price": 43,
+    "discount": 0,
+    "category": "الفيتامينات والمكملات",
+    "stock": 0,
+    "createdAt": "2026-01-12T13:45:12.265Z"
+  },
+  {
+    "id": "qqqqqqq",
+    "name": "منظف الوجه اللطيف",
+    "price": 44,
+    "discount": 0,
+    "stock": 0,
+    "createdAt": "2026-01-12T14:21:10.189Z"
+  },
+  {
+    "id": "4",
+    "name": "قبير",
+    "price": 43,
+    "discount": 0,
+    "stock": 0,
+    "createdAt": "2026-01-12T14:21:25.381Z"
+  },
+  {
+    "id": "qqqqqqq-333",
+    "name": "قبقسث",
+    "price": 32,
+    "discount": 0,
+    "stock": 0,
+    "createdAt": "2026-01-12T14:21:48.765Z"
+  },
+  {
+    "id": "ي",
+    "name": "24",
+    "price": 234,
+    "discount": 0,
+    "stock": 0,
+    "createdAt": "2026-01-12T14:22:04.660Z"
+  },
+  {
+    "id": "rrrrr",
+    "name": "مرطب ديرما اكتيف",
+    "description": "bbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "price": 180,
+    "discount": 0,
+    "category": "العناية بالشعر",
+    "stock": 1,
+    "image": "http://localhost:3000/uploads/INTENSE-1768261566979.png",
+    "createdAt": "2026-01-12T23:46:06.993Z",
+    "updatedAt": "2026-01-12T23:46:33.509Z"
+  }
+]

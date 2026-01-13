@@ -1,0 +1,8 @@
+{
+  "name": "pharmacy-website",
+  "version": "1.0.0",
+  "description": "Static pharmacy e-commerce website",
+  "main": "index.html",
+  "author": "",
+  "license": "MIT"
+}

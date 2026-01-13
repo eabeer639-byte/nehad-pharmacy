@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed Width Horizontal Scroll - No Shrinking</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Tajawal', sans-serif;
+      background: #f9f9f9;
+      padding: 20px 0;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 0 16px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      font-size: 24px;
+      text-align: center;
+      color: #222;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin: 32px 0 16px 0;
+      padding: 0 16px;
+    }
+
+    /* ============================================
+       METHOD 1: FLEXBOX WITH flex-shrink: 0
+       ============================================ */
+    .products-flex {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      padding: 0 0 8px 0;
+      width: 100%;
+    }
+
+    /* Hide scrollbar */
+    .products-flex::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .products-flex::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .products-flex::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 3px;
+    }
+
+    .products-flex::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    /* KEY: flex-shrink: 0 prevents cards from shrinking */
+    .product-card {
+      flex: 0 0 160px;
+      width: 160px;
+      height: auto;
+      min-height: 280px;
+      
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .product-card:active {
+      transform: scale(0.98);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 120px;
+      background: #f0f0f0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 48px;
+      flex-shrink: 0;
+    }
+
+    .product-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #222;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ff7a00;
+      margin-bottom: 8px;
+    }
+
+    .product-buttons {
+      display: flex;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .btn-small {
+      flex: 1;
+      padding: 8px 6px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-cart {
+      background: #ff7a00;
+      color: white;
+    }
+
+    .btn-cart:active {
+      background: #e86f00;
+    }
+
+    .btn-details {
+      background: #f0f0f0;
+      color: #222;
+    }
+
+    .btn-details:active {
+      background: #e0e0e0;
+    }
+
+    .scroll-hint {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+      margin-top: 12px;
+      display: block;
+    }
+
+    /* ============================================
+       METHOD 2: CSS GRID (Alternative)
+       ============================================ */
+    .products-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 160px;
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      padding: 0 0 8px 0;
+      width: 100%;
+    }
+
+    .products-grid::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .products-grid::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .products-grid::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 3px;
+    }
+
+    /* ============================================
+       RESPONSIVE BREAKPOINTS
+       ============================================ */
+    @media (min-width: 640px) {
+      .container {
+        padding: 0 24px;
+      }
+
+      .product-card {
+        flex: 0 0 180px;
+        width: 180px;
+      }
+
+      .products-grid {
+        grid-auto-columns: 180px;
+      }
+
+      .product-image {
+        height: 140px;
+      }
+
+      .product-title {
+        font-size: 14px;
+      }
+
+      .product-price {
+        font-size: 15px;
+      }
+
+      .btn-small {
+        padding: 10px 8px;
+        min-height: 40px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .products-flex {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+        overflow-x: visible;
+        overflow-y: visible;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+        overflow-x: visible;
+        overflow-y: visible;
+        grid-auto-columns: auto;
+        grid-auto-flow: row;
+      }
+
+      .product-card {
+        flex: auto;
+        width: auto;
+      }
+
+      .scroll-hint {
+        display: none;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        padding: 0 32px;
+      }
+
+      .product-card {
+        min-height: 300px;
+      }
+
+      .product-image {
+        height: 160px;
+      }
+
+      .product-title {
+        font-size: 15px;
+      }
+
+      .product-price {
+        font-size: 16px;
+      }
+
+      .btn-small {
+        padding: 10px 12px;
+        min-height: 44px;
+        font-size: 13px;
+      }
+    }
+
+    /* ============================================
+       ACCESSIBILITY
+       ============================================ */
+    @media (prefers-reduced-motion: reduce) {
+      .product-card {
+        transition: none;
+      }
+
+      .products-flex,
+      .products-grid {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* ============================================
+       COMPARISON SECTION
+       ============================================ */
+    .info-box {
+      background: #e8f4f8;
+      border-right: 4px solid #00bcd4;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 24px 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .info-box strong {
+      color: #00695c;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .code-example {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 12px;
+      margin: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fixed Width Cards - Horizontal Scroll</h1>
+
+    <div class="info-box">
+      <strong>✅ Key CSS Property: flex-shrink: 0</strong>
+      Cards are 160px wide and will NOT shrink to fit the viewport. They overflow and scroll horizontally.
+    </div>
+
+    <!-- METHOD 1: FLEXBOX -->
+    <div class="section-title">Method 1: Flexbox (flex-shrink: 0)</div>
+    <div class="products-flex">
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">مرطب البشرة</h3>
+        <p class="product-price">150 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧼</div>
+        <h3 class="product-title">منظف الوجه</h3>
+        <p class="product-price">120 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">شامبو الشعر</h3>
+        <p class="product-price">100 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">بلسم الشعر</h3>
+        <p class="product-price">110 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">مزيل العرق</h3>
+        <p class="product-price">90 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">لوشن الجسم</h3>
+        <p class="product-price">130 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧼</div>
+        <h3 class="product-title">غسول الأطفال</h3>
+        <p class="product-price">85 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">مرطب الأطفال</h3>
+        <p class="product-price">100 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">✨</div>
+        <h3 class="product-title">مصل فيتامين C</h3>
+        <p class="product-price">180 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">☀️</div>
+        <h3 class="product-title">واقي شمس SPF50</h3>
+        <p class="product-price">140 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-hint">← اسحب لليمين للمزيد →</span>
+
+    <!-- METHOD 2: CSS GRID -->
+    <div class="section-title">Method 2: CSS Grid (grid-auto-columns)</div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-image">💎</div>
+        <h3 class="product-title">زيت الوجه</h3>
+        <p class="product-price">160 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">قناع الوجه</h3>
+        <p class="product-price">95 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧼</div>
+        <h3 class="product-title">صابون طبيعي</h3>
+        <p class="product-price">75 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">✨</div>
+        <h3 class="product-title">سيروم اللؤلؤ</h3>
+        <p class="product-price">200 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">كريم الليل</h3>
+        <p class="product-price">125 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">كريم النهار</h3>
+        <p class="product-price">135 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">💧</div>
+        <h3 class="product-title">تونر الوجه</h3>
+        <p class="product-price">80 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧴</div>
+        <h3 class="product-title">كريم العينين</h3>
+        <p class="product-price">105 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🌿</div>
+        <h3 class="product-title">زيت طبيعي</h3>
+        <p class="product-price">110 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">💄</div>
+        <h3 class="product-title">أساس سائل</h3>
+        <p class="product-price">165 جنيه</p>
+        <div class="product-buttons">
+          <button class="btn-small btn-cart">أضف</button>
+          <button class="btn-small btn-details">تفاصيل</button>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-hint">← اسحب لليمين للمزيد →</span>
+
+    <div class="info-box" style="margin-top: 32px; background: #f3e5f5; border-right-color: #9c27b0;">
+      <strong>📝 CSS Comparison:</strong>
+      <strong>Flexbox:</strong> <code style="color: #d32f2f;">flex: 0 0 160px; width: 160px;</code><br>
+      <strong>Grid:</strong> <code style="color: #d32f2f;">grid-auto-columns: 160px; grid-auto-flow: column;</code><br>
+      Both prevent shrinking and enable horizontal overflow.
+    </div>
+  </div>
+</body>
+</html>
